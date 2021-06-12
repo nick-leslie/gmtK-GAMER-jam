@@ -4,14 +4,20 @@ using UnityEngine;
 using UnityEngine.Events;
 public class buttion : MonoBehaviour
 {
-    [SerializeField]
-    private bool NeedsToBeHeld;
+    [Header("events")]
     [SerializeField]
     private string[] vallidTags;
     [SerializeField]
     private UnityEvent open;
     [SerializeField]
     private UnityEvent closed;
+    [Header("flags")]
+    [SerializeField]
+    private bool presureSensitive;
+    [SerializeField]
+    private bool NeedsToBeHeld;
+    [Header("values")]
+    private float requiredMass;
     // Start is called before the first frame update
     void Start()
     {
@@ -30,7 +36,13 @@ public class buttion : MonoBehaviour
             //brodcast open
             if (open != null)
             {
-                open.Invoke();
+                if (presureSensitive == true)
+                {
+                    presureOpen(collision.gameObject);
+                } else
+                {
+                    open.Invoke();
+                }
             }
         }
     }
@@ -61,6 +73,20 @@ public class buttion : MonoBehaviour
         }
         Debug.Log("returns false");
         return false;
+    }
+    private void presureOpen(GameObject other)
+    {
+        if (presureSensitive == true)
+        {
+            Rigidbody2D colRb = other.GetComponent<Rigidbody2D>();
+            if (colRb != null)
+            {
+                if (colRb.mass >= requiredMass)
+                {
+                    open.Invoke();
+                }
+            }
+        }
     }
 
 }

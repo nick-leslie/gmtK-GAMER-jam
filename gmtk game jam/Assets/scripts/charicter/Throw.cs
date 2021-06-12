@@ -16,7 +16,6 @@ public class Throw : MonoBehaviour
     private GameObject[] points;
     [SerializeField]
     private int numberOfPoints;
-    private int maxActiveIndex;
     [SerializeField]
     private float pointSpred;
     public GameObject HeldObj {
