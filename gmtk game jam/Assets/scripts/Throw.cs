@@ -1,0 +1,100 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class Throw : MonoBehaviour
+{
+    [SerializeField]
+    private Transform throwPoint;
+    [SerializeField]
+    private float throwForce;
+    [SerializeField]
+    private GameObject heldObject;
+    Vector3 mousePos;
+    public GameObject point;
+    [SerializeField]
+    private GameObject[] points;
+    [SerializeField]
+    private int numberOfPoints;
+    private int maxActiveIndex;
+    [SerializeField]
+    private float pointSpred;
+    public GameObject HeldObj {
+        get
+        {
+            return heldObject;
+        }
+        set
+        {
+            if(value.tag == "throwable" || value.tag == "brain")
+            {
+                heldObject = value;
+            }
+        }
+    }
+    // Start is called before the first frame update
+    void Start()
+    {
+        points = new GameObject[numberOfPoints];
+        for (int i = 0; i < numberOfPoints; i++)
+        {
+            points[i] = Instantiate(point, throwPoint.position, Quaternion.identity);
+        }
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        throwForce = Vector2.Distance(throwPoint.position, mousePos);
+        transform.right = mouseDirectionVector();
+        mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        for (int i = 0; i < points.Length; i++)
+        {
+            points[i].transform.position = ArcPosition(i * pointSpred);
+        }
+        // this is temportary
+        if (Input.GetKeyDown(KeyCode.LeftShift))
+        {
+            toss();
+        }
+    }
+    void toss() 
+    {
+        Rigidbody2D heldRiggidBody = heldObject.GetComponent<Rigidbody2D>();
+        if (heldRiggidBody != null)
+        {
+            //heldObject.transform.right = mouseDirectionVector();
+            heldRiggidBody.velocity = transform.right * throwForce;
+            heldObject = null;
+        }
+    }
+    Vector2 mouseDirectionVector()
+    {
+        Vector2 direction = mousePos - throwPoint.position;
+        return direction.normalized;
+    }
+    Vector2 ArcPosition(float timeStep)
+    {
+        return (Vector2)throwPoint.position + (mouseDirectionVector()*throwForce*timeStep) + 0.5f * Physics2D.gravity * (timeStep * timeStep);
+    }
+
+
+
+    //this is old code that dose not work ignore it 
+    //it serves as a reminder never to do projectilel motion again
+    float mouseAngle()
+    {
+        //THIS IS FOR GETING THE ANGE BETWEEN MOUSE AND PLAYER I THINK?
+        //I want to die
+        return Mathf.Abs(Mathf.Rad2Deg*Mathf.Atan(mouseDirectionVector().y/mouseDirectionVector().x));
+    }
+    float ProjecitleVelocity()
+    {
+        //projectile motion is hard this should give us  the intital volocity we need we need
+        float top = Mathf.Sqrt(2) * Mathf.Sqrt(Mathf.Abs(Physics2D.gravity.y)) * Mathf.Sqrt(Mathf.Abs(mousePos.y - throwPoint.position.y));
+        Debug.Log(top);
+        float bottom = Mathf.Sin(Vector2.Angle(throwPoint.position,mousePos));
+        Debug.Log(bottom);
+        return top / bottom;
+    }
+}
