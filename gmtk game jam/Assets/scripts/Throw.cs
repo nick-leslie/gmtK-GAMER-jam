@@ -45,6 +45,10 @@ public class Throw : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if(heldObject != null)
+        {
+            heldObject.transform.position = throwPoint.position;
+        }
         throwForce = Vector2.Distance(throwPoint.position, mousePos);
         transform.right = mouseDirectionVector();
         mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
@@ -60,12 +64,15 @@ public class Throw : MonoBehaviour
     }
     void toss() 
     {
-        Rigidbody2D heldRiggidBody = heldObject.GetComponent<Rigidbody2D>();
-        if (heldRiggidBody != null)
+        if (heldObject != null)
         {
-            //heldObject.transform.right = mouseDirectionVector();
-            heldRiggidBody.velocity = transform.right * throwForce;
-            heldObject = null;
+            Rigidbody2D heldRiggidBody = heldObject.GetComponent<Rigidbody2D>();
+            if (heldRiggidBody != null)
+            {
+                //heldObject.transform.right = mouseDirectionVector();
+                heldRiggidBody.velocity = transform.right * throwForce;
+                heldObject = null;
+            }
         }
     }
     Vector2 mouseDirectionVector()
