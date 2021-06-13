@@ -58,6 +58,10 @@ public class cammeraControler : MonoBehaviour
     {
         StartCoroutine(StartCinimatic(target));
     }
+    public void moveToPoint(Transform target)
+    {
+        StartCoroutine(moveToTarget(target));
+    }
     //this is the start cinima where it gose to one tracked and then returns to defalt object
     public IEnumerator StartCinimatic(float duration, Transform target)
     {
@@ -76,6 +80,15 @@ public class cammeraControler : MonoBehaviour
         startPos = new Vector3(transform.position.x, transform.position.y, cammraZ);
         yield return StartCoroutine(MoveToLoc(defaltDuration));
         StartCoroutine(endShot());
+    }
+    public IEnumerator moveToTarget(Transform target)
+    {
+        //this sets the smoothflag
+        smooth = true;
+        changeTracked(target);
+        startPos = new Vector3(transform.position.x, transform.position.y, cammraZ);
+        yield return StartCoroutine(MoveToLoc(defaltDuration));
+        smooth = false;
     }
     //has to be called as a coroutine
     public IEnumerator StartCinimatic(float duration, Transform[] targetList)

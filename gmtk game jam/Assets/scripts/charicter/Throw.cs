@@ -59,7 +59,7 @@ public class Throw : MonoBehaviour
         mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
         // this is temportary
-        if (Input.GetKeyDown(KeyCode.LeftShift))
+        if (Input.GetKeyUp(KeyCode.LeftShift))
         {
             toss();
         }

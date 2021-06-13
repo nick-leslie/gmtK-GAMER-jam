@@ -16,6 +16,12 @@ public class RespawnPoint : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        respawnPoint = GameObject.FindGameObjectWithTag("Respawn").transform;
+        if (gameObject.CompareTag("Player"))
+        {
+            respawnPoint = GameObject.FindGameObjectWithTag("Respawn").transform;
+        } else if(gameObject.CompareTag("brain"))
+        {
+            respawnPoint = GameObject.FindGameObjectWithTag("RespawnBrain").transform;
+        }
     }
 }
