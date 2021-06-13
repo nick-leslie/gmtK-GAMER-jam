@@ -6,8 +6,11 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour{
 
-    public float speed;
-    public float jumpForce;
+    [SerializeField]
+    private float speed;
+    [SerializeField]
+    private float jumpForce;
+
     private float moveInput;
 
     private Rigidbody2D rb;
@@ -15,12 +18,17 @@ public class PlayerController : MonoBehaviour{
     private bool facingRight = true;
 
     private bool isGrounded;
-    public Transform groundCheck;
-    public float checkRadius;
-    public LayerMask whatIsGround;
+    [SerializeField]
+    private Transform groundCheck;
+    [SerializeField]
+    private float checkRadius;
+    [SerializeField]
+    private LayerMask whatIsGround;
 
     private int extraJumps;
-    public int extraJumpsValue;
+    [SerializeField]
+    private int extraJumpsValue;
+
 
     // Start is called before the first frame update
     void Start(){
@@ -68,5 +76,7 @@ public class PlayerController : MonoBehaviour{
         transform.localScale = Scaler;
 
     }
+
+
 
 }
