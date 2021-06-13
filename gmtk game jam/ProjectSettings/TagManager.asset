@@ -9,6 +9,7 @@ TagManager:
   - projectile
   - brain
   - throwable
+  - RespawnBrain
   layers:
   - Default
   - TransparentFX

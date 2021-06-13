@@ -17,7 +17,7 @@ public class brainBlast : MonoBehaviour
     {
         mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         transform.right = mouseDirectionVector();
-        if (Input.GetKeyDown(KeyCode.R))
+        if (Input.GetKeyDown(KeyCode.E))
         {
             shoot(); 
         }
