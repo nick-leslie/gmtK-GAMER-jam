@@ -47,6 +47,7 @@ public class Throw : MonoBehaviour
         if(heldObject != null)
         {
             heldObject.transform.position = throwPoint.position;
+            changeHeldColliderState(false);
         }
         throwForce = Vector2.Distance(throwPoint.position, mousePos);
         transform.right = mouseDirectionVector();
@@ -70,6 +71,7 @@ public class Throw : MonoBehaviour
             {
                 //heldObject.transform.right = mouseDirectionVector();
                 heldRiggidBody.velocity = transform.right * throwForce;
+                changeHeldColliderState(true);
                 heldObject = null;
             }
         }
@@ -84,7 +86,14 @@ public class Throw : MonoBehaviour
         return (Vector2)throwPoint.position + (mouseDirectionVector()*throwForce*timeStep) + 0.5f * Physics2D.gravity * (timeStep * timeStep);
     }
 
-
+    public void changeHeldColliderState(bool state)
+    {
+        Collider2D heldCollider = HeldObj.GetComponent<Collider2D>();
+        if (heldCollider != null)
+        {
+            heldCollider.enabled = state;
+        }
+    }
 
     //this is old code that dose not work ignore it 
     //it serves as a reminder never to do projectilel motion again
