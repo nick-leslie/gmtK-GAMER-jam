@@ -12,6 +12,8 @@ GameObject:
   - component: {fileID: 7203155360754386204}
   - component: {fileID: 7077817543396338212}
   - component: {fileID: 7961066080156008262}
+  - component: {fileID: -2719568747135960453}
+  - component: {fileID: 3039770657251482940}
   m_Layer: 0
   m_Name: scene maniger
   m_TagString: Untagged
@@ -69,7 +71,34 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4052c16689f05644ca484952130fe3e6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  BackgroundJams: []
+  BackgroundJams:
+  - {fileID: 8300000, guid: 67bd65d224fba6e45aebde7cbb8bd448, type: 3}
+  - {fileID: 8300000, guid: f24f7c5bcef83f24bad18ea13414bb03, type: 3}
+  - {fileID: 8300000, guid: 860ff4be579732146bd1ab7e03db1312, type: 3}
   Interactions: []
   backgroundVolume: 0.5
   sfxVolume: 0.5
+--- !u!114 &-2719568747135960453
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7203155360754386205}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5d66e6293dd419240b54de2b42ebf60a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &3039770657251482940
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7203155360754386205}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 44e703a3421f52549b08c0b4f2bc1547, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
