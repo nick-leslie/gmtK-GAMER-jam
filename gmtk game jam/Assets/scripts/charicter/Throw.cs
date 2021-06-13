@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class Throw : MonoBehaviour
 {
-    [SerializeField]
     private Transform throwPoint;
     [SerializeField]
     private float throwForce;
@@ -34,11 +33,13 @@ public class Throw : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        throwPoint = transform;
         points = new GameObject[numberOfPoints];
         for (int i = 0; i < numberOfPoints; i++)
         {
             points[i] = Instantiate(point, throwPoint.position, Quaternion.identity);
         }
+
     }
 
     // Update is called once per frame
@@ -48,14 +49,15 @@ public class Throw : MonoBehaviour
         {
             heldObject.transform.position = throwPoint.position;
             changeHeldColliderState(false);
+            showTragectory();
+        } else
+        {
+            hideTraggectory();
         }
         throwForce = Vector2.Distance(throwPoint.position, mousePos);
         transform.right = mouseDirectionVector();
         mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        for (int i = 0; i < points.Length; i++)
-        {
-            points[i].transform.position = ArcPosition(i * pointSpred);
-        }
+
         // this is temportary
         if (Input.GetKeyDown(KeyCode.LeftShift))
         {
@@ -74,6 +76,21 @@ public class Throw : MonoBehaviour
                 changeHeldColliderState(true);
                 heldObject = null;
             }
+        }
+    }
+    void showTragectory()
+    {
+        for (int i = 0; i < points.Length; i++)
+        {
+            points[i].SetActive(true);
+            points[i].transform.position = ArcPosition(i * pointSpred);
+        }
+    }
+    void hideTraggectory()
+    {
+        for (int i = 0; i < points.Length; i++)
+        {
+            points[i].SetActive(false);
         }
     }
     Vector2 mouseDirectionVector()
