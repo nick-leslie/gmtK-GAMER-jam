@@ -11,7 +11,7 @@ public class projectile : MonoBehaviour
     void Start()
     {
         rb = gameObject.GetComponent<Rigidbody2D>();
-        direction = transform.right;
+        direction = transform.up;
         Invoke("die", 1f);
     }
 
@@ -20,7 +20,7 @@ public class projectile : MonoBehaviour
     {
         //RaycastHit2D raycast = Physics2D.Raycast(transform.position, transform.right);
         rb.velocity = direction * force;
-        transform.right = direction;
+        transform.up = direction;
         //have the merior chage the transform.right of the projectile to be the reflected angle
     }
     private void OnCollisionEnter2D(Collision2D collision)
@@ -29,7 +29,7 @@ public class projectile : MonoBehaviour
         if(collision.gameObject.CompareTag("reflector"))
         {
             direction = Vector2.Reflect(rb.velocity.normalized, collision.contacts[0].normal).normalized;
-            transform.right = direction;
+            transform.up = direction;
         } else
         {
             die();

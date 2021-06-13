@@ -16,19 +16,11 @@ public class buttion : MonoBehaviour
     private bool presureSensitive;
     [SerializeField]
     private bool NeedsToBeHeld;
+    [SerializeField]
+    private bool InteractBaced;
     [Header("values")]
+    [SerializeField]
     private float requiredMass;
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (checkIfValid(collision.gameObject) == true)

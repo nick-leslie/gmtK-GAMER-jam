@@ -6,15 +6,54 @@ public class pickup : MonoBehaviour
 {
     [SerializeField]
     private Throw ThrowManiger;
-    private void OnTriggerStay2D(Collider2D collision)
+    private List<GameObject> objInZone;
+    private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (Input.GetKeyDown(KeyCode.LeftShift))
+        objInZone = new List<GameObject>();
+        if(shouldAddToZone(collision.gameObject)==true)
         {
-            if (ThrowManiger != null)
+            objInZone.Add(collision.gameObject);
+        }
+
+    }
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        objInZone.Remove(collision.gameObject);
+    }
+    bool shouldAddToZone(GameObject other)
+    {
+        for (int i = 0; i < objInZone.Count; i++)
+        {
+            if(other == objInZone[i])
             {
-                if(collision.CompareTag("brain")==true || collision.CompareTag("throwable"))
+                return false;
+            }
+        }
+        return true;
+    }
+    private void Update()
+    {
+        checkPickup();
+    }
+    void checkPickup()
+    {
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            for (int i = 0; i < objInZone.Count; i++)
+            {
+                if (ThrowManiger != null)
                 {
-                    ThrowManiger.HeldObj = collision.gameObject;
+                    if (objInZone[i].CompareTag("brain") == true || objInZone[i].CompareTag("throwable") == true)
+                    {
+                        if (ThrowManiger.HeldObj == null)
+                        {
+                            ThrowManiger.HeldObj = objInZone[i];
+                            break;
+                        } else
+                        {
+                            break;
+                        }
+                    }
                 }
             }
         }

@@ -24,7 +24,7 @@ public class brainBlast : MonoBehaviour
     }
     void shoot()
     {
-        transform.right = mouseDirectionVector();
+        transform.up = mouseDirectionVector();
         GameObject fired = Instantiate(shotPrefab, transform.position, transform.rotation);
     }
     Vector2 mouseDirectionVector()
