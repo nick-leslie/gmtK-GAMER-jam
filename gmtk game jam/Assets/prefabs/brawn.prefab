@@ -164,6 +164,8 @@ GameObject:
   - component: {fileID: 2366505158979416689}
   - component: {fileID: 2366505158979416691}
   - component: {fileID: 2366505158979416692}
+  - component: {fileID: 2009969306870643716}
+  - component: {fileID: 5634779609026488436}
   m_Layer: 7
   m_Name: brawn
   m_TagString: Player
@@ -180,7 +182,7 @@ Transform:
   m_GameObject: {fileID: 2366505158979416686}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -1.5379, y: 1.5228, z: 0}
-  m_LocalScale: {x: 3.5, y: 2.5, z: 0.8072}
+  m_LocalScale: {x: 3.5, y: 3.5, z: 0.8072}
   m_Children:
   - {fileID: 2366505157594355890}
   - {fileID: 2366505157576382064}
@@ -322,3 +324,34 @@ CircleCollider2D:
   m_Offset: {x: 0.04021574, y: -0.14449565}
   serializedVersion: 2
   m_Radius: 0.12457869
+--- !u!95 &2009969306870643716
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2366505158979416686}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 94f52a2af1a5af646a6db55cd6ce915b, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &5634779609026488436
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2366505158979416686}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ad20d7bf099950c47b8df382ae2989bc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
