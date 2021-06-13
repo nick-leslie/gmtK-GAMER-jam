@@ -12,21 +12,23 @@ public class cammeraControler : MonoBehaviour
     [Header("peramiters")]
     public float cammraSpeed;
     public float closeDistence;
-    [SerializeField]
     private float cammraZ;
     [Header("flags")]
     [SerializeField]
     private bool smooth;
+    [Header("defalt values")]
+    [SerializeField]
+    private float defaltDuration;
 
 
     //this is for lerping to a static position if the smooth flag is set
-    [SerializeField]
     private Vector3 startPos;
 
     // Start is called before the first frame update
     void Start()
     {
         currentTracked = defaltTracked;
+        cammraZ = defaltTracked.position.z - 1; 
     }
 
     // Update is called once per frame
@@ -51,31 +53,44 @@ public class cammeraControler : MonoBehaviour
     {
         currentTracked = newTracked;
     }
+    //this is so start cinimatic can be called using a unity event
+    public void StartCinimaticEvent(Transform target)
+    {
+        StartCoroutine(StartCinimatic(target));
+    }
     //this is the start cinima where it gose to one tracked and then returns to defalt object
-    public void StartCinimatic(float duration, Transform target)
+    public IEnumerator StartCinimatic(float duration, Transform target)
     {
         //this sets the smoothflag
         smooth = true;
         changeTracked(target);
         startPos = new Vector3(transform.position.x, transform.position.y, cammraZ);
-        StartCoroutine(MoveToLoc(duration, defaltTracked));
+        yield return StartCoroutine(MoveToLoc(duration));
+        StartCoroutine(endShot());
+    }
+    public IEnumerator StartCinimatic(Transform target)
+    {
+        //this sets the smoothflag
+        smooth = true;
+        changeTracked(target);
+        startPos = new Vector3(transform.position.x, transform.position.y, cammraZ);
+        yield return StartCoroutine(MoveToLoc(defaltDuration));
         StartCoroutine(endShot());
     }
     //has to be called as a coroutine
     public IEnumerator StartCinimatic(float duration, Transform[] targetList)
     {
-        Debug.Log("list being called");
         smooth = true;
         //loop through each transform in postion and move to them and wait untill done to triger next
         for (int i = 0; i < targetList.Length; i++)
         {
             changeTracked(targetList[i]);
-            yield return StartCoroutine(MoveToLoc(duration, targetList[i]));
+            yield return StartCoroutine(MoveToLoc(duration));
         }
         //this resets to player
         yield return StartCoroutine(endShot());
     }
-    private IEnumerator MoveToLoc(float duration, Transform newTracked)
+    private IEnumerator MoveToLoc(float duration)
     {
         //wait untill the cammra is within range
         while (Vector2.Distance(transform.position, currentTracked.position) > closeDistence)
