@@ -12,6 +12,7 @@ public class projectile : MonoBehaviour
     {
         rb = gameObject.GetComponent<Rigidbody2D>();
         direction = transform.right;
+        Invoke("die", 1f);
     }
 
     // Update is called once per frame
@@ -24,10 +25,18 @@ public class projectile : MonoBehaviour
     }
     private void OnCollisionEnter2D(Collision2D collision)
     {
+        //this kind of works but not realy
         if(collision.gameObject.CompareTag("reflector"))
         {
             direction = Vector2.Reflect(rb.velocity.normalized, collision.contacts[0].normal).normalized;
             transform.right = direction;
+        } else
+        {
+            die();
         }
+    }
+    void die()
+    {
+        Destroy(gameObject);
     }
 }

@@ -64,7 +64,7 @@ public class buttion : MonoBehaviour
     {
         for (int i = 0; i < vallidTags.Length; i++)
         {
-            if (vallidTags[i] == obj.tag)
+            if (obj.CompareTag(vallidTags[i]))
             {
                 Debug.Log("returns true");
                 return true;

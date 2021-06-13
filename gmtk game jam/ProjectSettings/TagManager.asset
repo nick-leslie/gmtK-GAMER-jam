@@ -6,6 +6,7 @@ TagManager:
   tags:
   - reflector
   - Platform
+  - projectile
   layers:
   - Default
   - TransparentFX
