@@ -4,81 +4,42 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 public class sceneManiger : MonoBehaviour
 {
-    public const int NEVER_UNLOAD = 0;
-    [SerializeField]
-    private GameObject player;
-    [SerializeField]
-    private GameObject MainCammra;
-    [SerializeField]
-    private bool NextLevle = true;
     //private audioManiger aManiger;
     // Start is called before the first frame update
     void Start()
     {
-        player = GameObject.FindGameObjectWithTag("Player");
-        MainCammra = GameObject.FindGameObjectWithTag("MainCamera");
         //aManiger = GameObject.FindGameObjectWithTag("audioManiger").GetComponent<audioManiger>();
+        Application.targetFrameRate = 100;
     }
-
-    // Update is called once per frame
-    void Update()
+    //this starts the game by going to scene 1
+    public void StartGame()
     {
-        if (NextLevle == true)
-        {
-            swapScene(SceneManager.GetActiveScene().buildIndex + 1, false);
-            NextLevle = false;
-        }
+        SceneManager.LoadScene(1, LoadSceneMode.Single);
     }
-    public void LoadNextLevle()
+    //this gose back to main menue by going to scene 0
+    public void GoBackTOMainMenu()
     {
-        swapScene(SceneManager.GetActiveScene().buildIndex + 1, true);
+        SceneManager.LoadScene(0, LoadSceneMode.Single);
     }
-    private void swapScene(int loadSceneNumber, bool unload)
+    public void nextScene()
     {
-        //adds all scenes to an array this may be bad for preformence but its not as bad as it us to be
-        Scene[] ActiveScenes = new Scene[SceneManager.sceneCount];
-        for (int i = 0; i < SceneManager.sceneCount; i++)
-        {
-            ActiveScenes[i] = SceneManager.GetSceneAt(i);
-        }
-        if (unload == true)
-        {
-            for (int i = 0; i < SceneManager.sceneCount; i++)
-            {
-                if (ActiveScenes[i].buildIndex != 0)
-                {
-                    StartCoroutine(unLoadScene(ActiveScenes[i].buildIndex));
-                }
-            }
-        }
-        SceneManager.LoadSceneAsync(loadSceneNumber, LoadSceneMode.Additive);
-        SceneManager.sceneLoaded += OnSceneLoaded;
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1, LoadSceneMode.Single);
     }
-    IEnumerator unLoadScene(int sence)
-    {
-        SceneManager.SetActiveScene(SceneManager.GetSceneByBuildIndex(0));
-        yield return null;
-        SceneManager.UnloadSceneAsync(sence);
-
-    }
-    IEnumerator MovePlayer()
-    {
-        //Debug.Log("being called");
-        yield return null;
-        Transform spawnPos = GameObject.FindGameObjectWithTag("Respawn").transform;
-        //player.GetComponent<HealthManiger>().changeSpawn(spawnPos);
-        player.transform.position = spawnPos.position;
-    }
+    //this sets the new scene to be the active sce
     void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
         SceneManager.SetActiveScene(scene);
-        StartCoroutine(MovePlayer());
         SceneManager.sceneLoaded -= OnSceneLoaded;
     }
+    //gose to the win screen by loading scene 2
+    public void YouWin()
+    {
+        SceneManager.LoadScene(2, LoadSceneMode.Single);
+    }
+    //alows for the the level to restetart by reloading the level
     public void ReloadLvl()
     {
         //MainCammra.GetComponent<>
-        swapScene(SceneManager.GetActiveScene().buildIndex, true);
-        //aManiger.CurrentBackground -= 1;
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex, LoadSceneMode.Single);
     }
 }
