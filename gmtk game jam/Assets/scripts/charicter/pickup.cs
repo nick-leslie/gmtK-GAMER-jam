@@ -40,7 +40,7 @@ public class pickup : MonoBehaviour
     }
     void checkPickup()
     {
-        if (Input.GetKeyDown(KeyCode.E))
+        if (Input.GetKeyDown(KeyCode.LeftShift))
         {
             if (objInZone.Count > 0)
             {
